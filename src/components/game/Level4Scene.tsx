@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Star, CheckCircle, X, AlertTriangle, RefreshCw } from 'lucide-react';
 
-interface Level2SceneProps {
+interface Level4SceneProps {
   onNext: () => void;
   onBack: () => void;
   gameData: any;
@@ -11,84 +11,84 @@ interface Level2SceneProps {
 
 const softwareOptions = [
   {
-    id: 'erp',
-    name: 'ERP System',
-    icon: '🏢',
-    description: 'Enterprise Resource Planning',
-    correctModel: 'waterfall',
-    reasoning: 'ERP systems need comprehensive planning and fixed requirements'
+    id: 'blockchain',
+    name: 'Blockchain Platform',
+    icon: '⛓️',
+    description: 'Cryptocurrency trading platform',
+    correctModel: 'spiral',
+    reasoning: 'Blockchain systems have high security risks and need iterative risk assessment'
   },
   {
-    id: 'billing',
-    name: 'Billing App',
-    icon: '💰',
-    description: 'Invoice and payment system',
-    correctModel: 'iterative',
-    reasoning: 'Billing apps benefit from iterative improvements and testing'
-  },
-  {
-    id: 'exam',
-    name: 'Exam Portal',
-    icon: '📝',
-    description: 'Online examination platform',
-    correctModel: 'vmodel',
-    reasoning: 'Exam portals require extensive testing and verification'
-  },
-  {
-    id: 'messaging',
-    name: 'Messaging Platform',
-    icon: '💬',
-    description: 'Real-time chat application',
-    correctModel: 'agile',
-    reasoning: 'Messaging apps need rapid feature updates and user feedback integration'
-  },
-  {
-    id: 'warehouse',
-    name: 'Warehouse Management',
-    icon: '📦',
-    description: 'Inventory tracking system',
-    correctModel: 'iterative',
-    reasoning: 'Warehouse systems benefit from gradual rollout and process refinement'
-  },
-  {
-    id: 'medical',
-    name: 'Medical Records',
+    id: 'healthcare',
+    name: 'Healthcare Records',
     icon: '🏥',
-    description: 'Patient data management',
+    description: 'Patient management system',
     correctModel: 'vmodel',
-    reasoning: 'Medical systems require extensive testing and validation for patient safety'
+    reasoning: 'Healthcare systems require extensive testing and validation for patient safety'
   },
   {
-    id: 'gaming',
-    name: 'Online Game',
-    icon: '🎮',
-    description: 'Multiplayer gaming platform',
+    id: 'streaming',
+    name: 'Video Streaming',
+    icon: '🎬',
+    description: 'On-demand video platform',
     correctModel: 'agile',
-    reasoning: 'Gaming platforms need continuous updates and player feedback integration'
+    reasoning: 'Streaming platforms need rapid feature updates and user feedback integration'
   },
   {
-    id: 'banking',
-    name: 'Banking System',
-    icon: '🏦',
-    description: 'Core banking application',
-    correctModel: 'waterfall',
-    reasoning: 'Banking systems require strict compliance and comprehensive documentation'
+    id: 'fintech',
+    name: 'Digital Wallet',
+    icon: '💳',
+    description: 'Mobile payment solution',
+    correctModel: 'spiral',
+    reasoning: 'Financial apps require careful risk analysis for security and compliance'
   },
   {
-    id: 'recruitment',
-    name: 'HR Platform',
-    icon: '👥',
-    description: 'Human resources management',
+    id: 'iot',
+    name: 'IoT Dashboard',
+    icon: '🌐',
+    description: 'Smart device monitoring',
     correctModel: 'iterative',
-    reasoning: 'HR systems benefit from gradual feature rollout and workflow refinement'
+    reasoning: 'IoT systems benefit from incremental development and device integration testing'
   },
   {
-    id: 'research',
-    name: 'Research Database',
-    icon: '🔬',
-    description: 'Scientific data repository',
-    correctModel: 'vmodel',
-    reasoning: 'Research systems need rigorous validation and data integrity testing'
+    id: 'ai-platform',
+    name: 'AI Analytics',
+    icon: '🤖',
+    description: 'Machine learning platform',
+    correctModel: 'agile',
+    reasoning: 'AI platforms need continuous learning and adaptation through user feedback'
+  },
+  {
+    id: 'crm',
+    name: 'CRM System',
+    icon: '👥',
+    description: 'Customer relationship management',
+    correctModel: 'iterative',
+    reasoning: 'CRM systems need gradual feature rollout and user workflow refinement'
+  },
+  {
+    id: 'travel',
+    name: 'Travel Booking',
+    icon: '✈️',
+    description: 'Flight and hotel booking',
+    correctModel: 'agile',
+    reasoning: 'Travel platforms need quick adaptation to market changes and user preferences'
+  },
+  {
+    id: 'logistics',
+    name: 'Supply Chain',
+    icon: '📦',
+    description: 'Inventory and shipping tracker',
+    correctModel: 'waterfall',
+    reasoning: 'Supply chain systems need comprehensive planning and integration with existing systems'
+  },
+  {
+    id: 'education',
+    name: 'Learning Management',
+    icon: '📚',
+    description: 'Online course platform',
+    correctModel: 'iterative',
+    reasoning: 'Educational platforms benefit from gradual content rollout and user feedback'
   }
 ];
 
@@ -100,31 +100,9 @@ const allModels = [
   { id: 'vmodel', name: 'V-Model', emoji: '🧪', color: 'from-pink-500 to-pink-700' }
 ];
 
-const criticComments = {
-  erp: {
-    agile: "Hmm... Agile for ERP? What about fixed requirements and extensive documentation?",
-    iterative: "ERP systems are huge! Can iterative handle all those enterprise features?",
-    spiral: "Spiral might work, but is risk analysis the main concern for ERP?",
-    vmodel: "V-Model has testing, but ERP needs more comprehensive planning first."
-  },
-  billing: {
-    waterfall: "Waterfall for billing? What if payment methods change frequently?",
-    agile: "Agile could work, but billing needs structured testing cycles.",
-    spiral: "Is risk the main concern for a billing system?",
-    vmodel: "V-Model is good for testing, but billing needs continuous improvements."
-  },
-  exam: {
-    waterfall: "Waterfall might be too rigid for exam systems that need updates.",
-    agile: "Agile is flexible, but exam systems need rigorous testing validation.",
-    iterative: "Iterative improvements are good, but what about comprehensive testing?",
-    spiral: "Spiral handles risks, but exam systems need more focus on verification."
-  }
-};
-
-const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, updateGameData }) => {
+const Level4Scene: React.FC<Level4SceneProps> = ({ onNext, onBack, gameData, updateGameData }) => {
   const [selectedSoftware, setSelectedSoftware] = useState<string | null>(null);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
-  const [showCriticComment, setShowCriticComment] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempts, setAttempts] = useState(0);
@@ -132,7 +110,6 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
   const handleSoftwareSelect = (softwareId: string) => {
     setSelectedSoftware(softwareId);
     setSelectedModel(null);
-    setShowCriticComment(false);
     setShowResult(false);
     setAttempts(0);
   };
@@ -145,34 +122,26 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
     const correct = software?.correctModel === modelId;
     
     setIsCorrect(correct);
+    setShowResult(true);
+    setAttempts(prev => prev + 1);
     
-    if (!correct) {
-      setShowCriticComment(true);
-      setTimeout(() => {
-        setShowResult(true);
-      }, 3000);
-    } else {
-      setShowResult(true);
+    if (correct) {
       updateGameData({ 
-        level2Complete: true, 
-        score: gameData.score + (attempts === 0 ? 150 : 75),
-        completedLevels: [...(gameData.completedLevels || []), 2]
+        level4Complete: true, 
+        score: gameData.score + (attempts === 0 ? 200 : 100),
+        completedLevels: [...(gameData.completedLevels || []), 4]
       });
     }
-    
-    setAttempts(prev => prev + 1);
   };
 
   const handleTryAgain = () => {
     setSelectedModel(null);
-    setShowCriticComment(false);
     setShowResult(false);
   };
 
   const handleRestart = () => {
     setSelectedSoftware(null);
     setSelectedModel(null);
-    setShowCriticComment(false);
     setShowResult(false);
     setAttempts(0);
   };
@@ -180,9 +149,9 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
   const currentSoftware = softwareOptions.find(s => s.id === selectedSoftware);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 overflow-auto">
-      {/* Fixed header with back button and level indicator */}
-      <div className="sticky top-0 z-20 bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 p-3 md:p-4">
+    <div className="w-full min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 overflow-auto">
+      {/* Fixed header */}
+      <div className="sticky top-0 z-20 bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 p-3 md:p-4">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           <button
             onClick={onBack}
@@ -194,25 +163,25 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
           <div className="bg-white/90 rounded-lg p-2 md:p-3 shadow-lg">
             <div className="flex items-center space-x-2">
               <Star className="w-4 h-4 md:w-5 md:h-5 text-yellow-500" />
-              <span className="font-bold text-gray-700 text-sm md:text-base">Level 2 of 6</span>
+              <span className="font-bold text-gray-700 text-sm md:text-base">Level 4 of 6</span>
             </div>
           </div>
 
           {showResult && !isCorrect && (
             <button
               onClick={handleRestart}
-              className="bg-orange-500 hover:bg-orange-600 text-white p-2 md:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              className="bg-blue-500 hover:bg-blue-600 text-white p-2 md:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
             >
               <RefreshCw className="w-5 h-5 md:w-6 md:h-6" />
             </button>
           )}
         </div>
 
-        {/* Classroom header */}
+        {/* Level header */}
         <div className="flex flex-col items-center mt-4 space-y-2">
-          <div className="bg-green-800 h-2 md:h-3 w-full max-w-md rounded-full"></div>
+          <div className="bg-purple-600 h-2 md:h-3 w-full max-w-md rounded-full"></div>
           <div className="bg-gray-800 h-12 md:h-16 w-full max-w-md rounded-lg shadow-lg flex items-center justify-center px-4">
-            <h2 className="text-white text-base md:text-xl font-bold text-center">Level 2: Be Careful!</h2>
+            <h2 className="text-white text-base md:text-xl font-bold text-center">Level 4: Advanced Systems</h2>
           </div>
         </div>
       </div>
@@ -223,16 +192,16 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
         <div className="text-center mb-6 md:mb-8">
           <div className="bg-white/90 rounded-xl p-4 md:p-6 shadow-lg">
             <div className="flex items-center justify-center mb-3 md:mb-4">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full flex items-center justify-center">
-                <span className="text-xl md:text-2xl">👨‍🏫</span>
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-xl md:text-2xl">👨‍💻</span>
               </div>
             </div>
-            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">More Complex Choices!</h3>
+            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">Complex Technology Systems!</h3>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-              {!selectedSoftware && "Choose from 10 diverse projects. Each has unique challenges!"}
-              {selectedSoftware && !showResult && "All 5 models are available now. Choose wisely!"}
-              {showResult && isCorrect && "Perfect analysis! You're becoming an expert!"}
-              {showResult && !isCorrect && "The critic had a point. Consider the project's specific requirements!"}
+              {!selectedSoftware && "Choose from 10 advanced software projects. Each has unique technical challenges!"}
+              {selectedSoftware && !showResult && "Consider the technical complexity and requirements carefully!"}
+              {showResult && isCorrect && "Outstanding! You understand complex system requirements!"}
+              {showResult && !isCorrect && "Think about the specific technical challenges of this system."}
             </p>
           </div>
         </div>
@@ -240,19 +209,19 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
         {/* Software selection */}
         {!selectedSoftware && (
           <div className="mb-6 md:mb-8">
-            <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-gray-800">Choose a Complex Project:</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-gray-800">Choose an Advanced Project:</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {softwareOptions.map((software) => (
                 <button
                   key={software.id}
                   onClick={() => handleSoftwareSelect(software.id)}
-                  className="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 text-center border-2 border-orange-200 hover:border-orange-400"
+                  className="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 text-center border-2 border-purple-200 hover:border-purple-400"
                 >
                   <div className="text-4xl md:text-6xl mb-3 md:mb-4">{software.icon}</div>
-                  <h4 className="text-lg md:text-xl font-bold text-gray-800 mb-2 leading-tight">{software.name}</h4>
-                  <p className="text-gray-600 text-xs md:text-sm mb-3 leading-tight">{software.description}</p>
-                  <div className="bg-orange-100 rounded-lg p-2">
-                    <span className="text-xs text-orange-700 font-medium">🔥 Complex Project</span>
+                  <h4 className="text-lg md:text-xl font-bold text-gray-800 mb-2">{software.name}</h4>
+                  <p className="text-gray-600 text-xs md:text-sm mb-3">{software.description}</p>
+                  <div className="bg-purple-100 rounded-lg p-2">
+                    <span className="text-xs text-purple-700 font-medium">💻 Advanced System</span>
                   </div>
                 </button>
               ))}
@@ -263,12 +232,12 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
         {/* Selected software display */}
         {selectedSoftware && (
           <div className="mb-6 md:mb-8">
-            <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg text-center border-2 border-orange-300">
-              <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4">Selected Complex Project:</h3>
+            <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg text-center border-2 border-purple-300">
+              <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4">Selected Advanced Project:</h3>
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <span className="text-3xl md:text-4xl">{currentSoftware?.icon}</span>
                 <div className="text-center sm:text-left">
-                  <h4 className="text-xl md:text-2xl font-bold text-orange-600">{currentSoftware?.name}</h4>
+                  <h4 className="text-xl md:text-2xl font-bold text-purple-600">{currentSoftware?.name}</h4>
                   <p className="text-gray-600 text-sm md:text-base">{currentSoftware?.description}</p>
                 </div>
               </div>
@@ -277,9 +246,9 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
         )}
 
         {/* Model selection */}
-        {selectedSoftware && !showCriticComment && !showResult && (
+        {selectedSoftware && !showResult && (
           <div className="mb-6 md:mb-8">
-            <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-gray-800">Choose from ALL 5 Models:</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-gray-800">Choose the Best SDLC Model:</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
               {allModels.map((model) => (
                 <button
@@ -295,34 +264,12 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
           </div>
         )}
 
-        {/* Critic comment */}
-        {showCriticComment && (
-          <div className="mb-6 md:mb-8 animate-fade-in">
-            <div className="bg-red-100 border-2 border-red-300 rounded-xl p-4 md:p-6 shadow-lg">
-              <div className="flex items-start space-x-3 md:space-x-4">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl md:text-2xl">🤔</span>
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-base md:text-lg font-bold text-red-800 mb-2 flex items-center">
-                    <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                    Critic's Challenge
-                  </h4>
-                  <p className="text-red-700 text-sm md:text-base leading-relaxed">
-                    Think more carefully about this project's specific requirements and constraints.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Result display */}
         {showResult && (
           <div className="text-center">
             <div className={`bg-white rounded-xl p-6 md:p-8 shadow-lg ${isCorrect ? 'border-4 border-green-400' : 'border-4 border-red-400'}`}>
               <div className="text-6xl md:text-8xl mb-4 md:mb-6">
-                {isCorrect ? '🎉' : '😅'}
+                {isCorrect ? '🎉' : '🤔'}
               </div>
               <h3 className={`text-2xl md:text-3xl font-bold mb-4 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                 {isCorrect ? 'Excellent Analysis!' : 'Not Quite Right'}
@@ -340,7 +287,7 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
                     className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-full text-lg md:text-xl shadow-xl transform transition-all duration-300 hover:scale-110"
                   >
                     <CheckCircle className="inline-block w-5 h-5 md:w-6 md:h-6 mr-2" />
-                    Continue to Level 3
+                    Continue to Level 5
                   </button>
                 ) : (
                   <>
@@ -369,4 +316,4 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
   );
 };
 
-export default Level2Scene;
+export default Level4Scene;

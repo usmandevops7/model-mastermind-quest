@@ -5,6 +5,9 @@ import LearnModelsScene from '../components/game/LearnModelsScene';
 import Level1Scene from '../components/game/Level1Scene';
 import Level2Scene from '../components/game/Level2Scene';
 import Level3Scene from '../components/game/Level3Scene';
+import Level4Scene from '../components/game/Level4Scene';
+import Level5Scene from '../components/game/Level5Scene';
+import Level6Scene from '../components/game/Level6Scene';
 import VictoryScene from '../components/game/VictoryScene';
 import { GameProvider } from '../contexts/GameContext';
 
@@ -25,7 +28,8 @@ const GameScenes = () => {
     selectedModel: '',
     level: 1,
     score: 0,
-    modelsLearned: []
+    modelsLearned: [],
+    completedLevels: []
   });
 
   const navigateToScene = (scene: string) => {
@@ -70,8 +74,35 @@ const GameScenes = () => {
       case 'level3':
         return (
           <Level3Scene 
-            onNext={() => navigateToScene('victory')} 
+            onNext={() => navigateToScene('level4')} 
             onBack={() => navigateToScene('level2')}
+            gameData={gameData}
+            updateGameData={updateGameData}
+          />
+        );
+      case 'level4':
+        return (
+          <Level4Scene 
+            onNext={() => navigateToScene('level5')} 
+            onBack={() => navigateToScene('level3')}
+            gameData={gameData}
+            updateGameData={updateGameData}
+          />
+        );
+      case 'level5':
+        return (
+          <Level5Scene 
+            onNext={() => navigateToScene('level6')} 
+            onBack={() => navigateToScene('level4')}
+            gameData={gameData}
+            updateGameData={updateGameData}
+          />
+        );
+      case 'level6':
+        return (
+          <Level6Scene 
+            onNext={() => navigateToScene('victory')} 
+            onBack={() => navigateToScene('level5')}
             gameData={gameData}
             updateGameData={updateGameData}
           />
@@ -90,7 +121,7 @@ const GameScenes = () => {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/10 via-purple-900/5 to-pink-900/10" />
       {renderScene()}
     </div>

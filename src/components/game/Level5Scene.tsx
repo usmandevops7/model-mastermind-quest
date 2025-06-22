@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Star, CheckCircle, X, Clock, Zap, RefreshCw } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft, Star, CheckCircle, X, Zap, RefreshCw } from 'lucide-react';
 
-interface Level3SceneProps {
+interface Level5SceneProps {
   onNext: () => void;
   onBack: () => void;
   gameData: any;
@@ -11,84 +11,100 @@ interface Level3SceneProps {
 
 const softwareOptions = [
   {
-    id: 'hospital',
-    name: 'Hospital Management',
-    icon: '🏥',
-    description: 'Critical patient care system',
-    correctModel: 'spiral',
-    reasoning: 'Hospital systems have high risks and need careful risk analysis at each phase'
-  },
-  {
-    id: 'ai-chatbot',
-    name: 'AI Chatbot',
-    icon: '🤖',
-    description: 'Intelligent conversation system',
-    correctModel: 'agile',
-    reasoning: 'AI systems need continuous learning and adaptation through user feedback'
-  },
-  {
-    id: 'government',
-    name: 'Government Portal',
-    icon: '🏛️',
-    description: 'Public service platform',
-    correctModel: 'waterfall',
-    reasoning: 'Government systems need strict compliance, documentation, and fixed procedures'
-  },
-  {
-    id: 'aviation',
-    name: 'Flight Control',
-    icon: '✈️',
-    description: 'Air traffic management',
-    correctModel: 'vmodel',
-    reasoning: 'Aviation systems require extensive testing and validation for flight safety'
-  },
-  {
-    id: 'fintech',
-    name: 'Payment Gateway',
-    icon: '💳',
-    description: 'Financial transaction processor',
-    correctModel: 'spiral',
-    reasoning: 'Payment systems face high security risks requiring careful analysis'
-  },
-  {
-    id: 'iot-smart',
-    name: 'Smart Home Hub',
-    icon: '🏠',
-    description: 'Connected device controller',
-    correctModel: 'iterative',
-    reasoning: 'IoT systems benefit from gradual device integration and feature testing'
-  },
-  {
     id: 'autonomous',
-    name: 'Self-Driving Car',
+    name: 'Autonomous Vehicle',
     icon: '🚗',
-    description: 'Autonomous vehicle system',
+    description: 'Self-driving car software',
     correctModel: 'vmodel',
-    reasoning: 'Autonomous vehicles require extensive validation for safety-critical operations'
+    reasoning: 'Autonomous vehicles require extensive testing and verification for safety-critical systems'
   },
   {
-    id: 'telehealth',
-    name: 'Telemedicine Platform',
-    icon: '👩‍⚕️',
-    description: 'Remote healthcare service',
-    correctModel: 'agile',
-    reasoning: 'Telehealth platforms need rapid adaptation to medical practice changes'
-  },
-  {
-    id: 'energy',
-    name: 'Power Grid Control',
-    icon: '⚡',
-    description: 'Electrical grid management',
+    id: 'spacecraft',
+    name: 'Spacecraft Control',
+    icon: '🚀',
+    description: 'Mission control software',
     correctModel: 'waterfall',
-    reasoning: 'Power grids require comprehensive planning and cannot afford system failures'
+    reasoning: 'Space missions need comprehensive planning, documentation, and cannot afford failures'
   },
   {
-    id: 'defense',
-    name: 'Military Command',
-    icon: '🛡️',
-    description: 'Defense coordination system',
+    id: 'trading',
+    name: 'Trading Platform',
+    icon: '📈',
+    description: 'High-frequency trading system',
     correctModel: 'spiral',
-    reasoning: 'Military systems involve high operational risks requiring continuous risk assessment'
+    reasoning: 'Trading systems have high financial risks and need careful risk assessment'
+  },
+  {
+    id: 'social-vr',
+    name: 'VR Social Platform',
+    icon: '🥽',
+    description: 'Virtual reality social space',
+    correctModel: 'agile',
+    reasoning: 'VR platforms need rapid iteration based on user experience and emerging technologies'
+  },
+  {
+    id: 'nuclear',
+    name: 'Nuclear Plant Monitor',
+    icon: '⚛️',
+    description: 'Nuclear facility monitoring',
+    correctModel: 'vmodel',
+    reasoning: 'Nuclear systems require rigorous testing and validation for safety compliance'
+  },
+  {
+    id: 'quantum',
+    name: 'Quantum Computing',
+    icon: '🔬',
+    description: 'Quantum algorithm platform',
+    correctModel: 'spiral',
+    reasoning: 'Quantum computing involves high technical risks and experimental approaches'
+  },
+  {
+    id: 'biometric',
+    name: 'Biometric Security',
+    icon: '🔐',
+    description: 'Fingerprint and face recognition',
+    correctModel: 'vmodel',
+    reasoning: 'Biometric systems need extensive testing for accuracy and security validation'
+  },
+  {
+    id: 'drone',
+    name: 'Drone Fleet Manager',
+    icon: '🛸',
+    description: 'Multiple drone coordination',
+    correctModel: 'iterative',
+    reasoning: 'Drone systems benefit from gradual feature rollout and flight testing iterations'
+  },
+  {
+    id: 'satellite',
+    name: 'Satellite Network',
+    icon: '🛰️',
+    description: 'Global communication satellites',
+    correctModel: 'waterfall',
+    reasoning: 'Satellite systems require comprehensive planning as hardware changes are impossible once deployed'
+  },
+  {
+    id: 'ar-surgery',
+    name: 'AR Surgery Assistant',
+    icon: '🏥',
+    description: 'Augmented reality for surgeons',
+    correctModel: 'vmodel',
+    reasoning: 'Medical AR systems require extensive validation and testing for patient safety'
+  },
+  {
+    id: 'crypto-exchange',
+    name: 'Crypto Exchange',
+    icon: '₿',
+    description: 'Cryptocurrency trading platform',
+    correctModel: 'spiral',
+    reasoning: 'Crypto exchanges face high security and regulatory risks requiring careful analysis'
+  },
+  {
+    id: 'smart-city',
+    name: 'Smart City Hub',
+    icon: '🏙️',
+    description: 'Urban infrastructure management',
+    correctModel: 'iterative',
+    reasoning: 'Smart city systems need gradual integration across different city departments'
   }
 ];
 
@@ -100,37 +116,12 @@ const allModels = [
   { id: 'vmodel', name: 'V-Model', emoji: '🧪', color: 'from-pink-500 to-pink-700' }
 ];
 
-const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, updateGameData }) => {
+const Level5Scene: React.FC<Level5SceneProps> = ({ onNext, onBack, gameData, updateGameData }) => {
   const [selectedSoftware, setSelectedSoftware] = useState<string | null>(null);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15);
-  const [timerActive, setTimerActive] = useState(false);
   const [attempts, setAttempts] = useState(0);
-
-  useEffect(() => {
-    if (selectedSoftware && !showResult) {
-      setTimerActive(true);
-      setTimeLeft(15);
-    }
-  }, [selectedSoftware]);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (timerActive && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
-      }, 1000);
-    } else if (timeLeft === 0 && timerActive) {
-      setTimerActive(false);
-      const software = softwareOptions.find(s => s.id === selectedSoftware);
-      const wrongModels = allModels.filter(m => m.id !== software?.correctModel);
-      const randomWrong = wrongModels[Math.floor(Math.random() * wrongModels.length)];
-      handleModelSelect(randomWrong.id);
-    }
-    return () => clearInterval(interval);
-  }, [timerActive, timeLeft, selectedSoftware]);
 
   const handleSoftwareSelect = (softwareId: string) => {
     setSelectedSoftware(softwareId);
@@ -142,7 +133,6 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
   const handleModelSelect = (modelId: string) => {
     if (!selectedSoftware) return;
     
-    setTimerActive(false);
     setSelectedModel(modelId);
     const software = softwareOptions.find(s => s.id === selectedSoftware);
     const correct = software?.correctModel === modelId;
@@ -152,12 +142,10 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
     setAttempts(prev => prev + 1);
     
     if (correct) {
-      const timeBonus = timeLeft * 10;
-      const speedBonus = attempts === 0 ? 200 : 100;
       updateGameData({ 
-        level3Complete: true, 
-        score: gameData.score + speedBonus + timeBonus,
-        completedLevels: [...(gameData.completedLevels || []), 3]
+        level5Complete: true, 
+        score: gameData.score + (attempts === 0 ? 250 : 125),
+        completedLevels: [...(gameData.completedLevels || []), 5]
       });
     }
   };
@@ -165,8 +153,6 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
   const handleTryAgain = () => {
     setSelectedModel(null);
     setShowResult(false);
-    setTimeLeft(15);
-    setTimerActive(true);
   };
 
   const handleRestart = () => {
@@ -174,16 +160,14 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
     setSelectedModel(null);
     setShowResult(false);
     setAttempts(0);
-    setTimeLeft(15);
-    setTimerActive(false);
   };
 
   const currentSoftware = softwareOptions.find(s => s.id === selectedSoftware);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-red-100 via-pink-100 to-purple-100 overflow-auto">
+    <div className="w-full min-h-screen bg-gradient-to-br from-red-100 via-orange-100 to-yellow-100 overflow-auto">
       {/* Fixed header */}
-      <div className="sticky top-0 z-20 bg-gradient-to-br from-red-100 via-pink-100 to-purple-100 p-3 md:p-4">
+      <div className="sticky top-0 z-20 bg-gradient-to-br from-red-100 via-orange-100 to-yellow-100 p-3 md:p-4">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           <button
             onClick={onBack}
@@ -195,39 +179,28 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
           <div className="bg-white/90 rounded-lg p-2 md:p-3 shadow-lg">
             <div className="flex items-center space-x-2">
               <Star className="w-4 h-4 md:w-5 md:h-5 text-yellow-500" />
-              <span className="font-bold text-gray-700 text-sm md:text-base">Level 3 of 6</span>
+              <span className="font-bold text-gray-700 text-sm md:text-base">Level 5 of 6</span>
             </div>
           </div>
 
           {showResult && !isCorrect && (
             <button
               onClick={handleRestart}
-              className="bg-red-500 hover:bg-red-600 text-white p-2 md:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              className="bg-orange-500 hover:bg-orange-600 text-white p-2 md:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
             >
               <RefreshCw className="w-5 h-5 md:w-6 md:h-6" />
             </button>
           )}
         </div>
 
-        {/* Timer */}
-        {selectedSoftware && timerActive && (
-          <div className="flex justify-center mt-4">
-            <div className={`bg-white/90 rounded-lg p-3 md:p-4 shadow-lg border-2 ${timeLeft <= 5 ? 'border-red-500 animate-pulse' : 'border-blue-500'}`}>
-              <div className="flex items-center space-x-2">
-                <Clock className={`w-4 h-4 md:w-5 md:h-5 ${timeLeft <= 5 ? 'text-red-500' : 'text-blue-500'}`} />
-                <span className={`font-bold text-lg md:text-xl ${timeLeft <= 5 ? 'text-red-500' : 'text-blue-500'}`}>
-                  {timeLeft}s
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Level header */}
         <div className="flex flex-col items-center mt-4 space-y-2">
           <div className="bg-red-600 h-2 md:h-3 w-full max-w-md rounded-full"></div>
           <div className="bg-gray-900 h-12 md:h-16 w-full max-w-md rounded-lg shadow-lg flex items-center justify-center px-4">
-            <h2 className="text-white text-base md:text-xl font-bold text-center">🔥 Level 3: Time Pressure!</h2>
+            <h2 className="text-white text-base md:text-xl font-bold text-center flex items-center">
+              <Zap className="w-4 h-4 md:w-5 md:h-5 mr-2 text-yellow-400" />
+              Level 5: Critical Systems
+            </h2>
           </div>
         </div>
       </div>
@@ -236,21 +209,21 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
       <div className="px-3 md:px-6 pb-8 max-w-7xl mx-auto">
         {/* Teacher instruction */}
         <div className="text-center mb-6 md:mb-8">
-          <div className="bg-white/90 rounded-xl p-4 md:p-6 shadow-lg border-2 border-red-300">
+          <div className="bg-white/90 rounded-xl p-4 md:p-6 shadow-lg border-2 border-red-200">
             <div className="flex items-center justify-center mb-3 md:mb-4">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center">
-                <span className="text-xl md:text-2xl">⏰</span>
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-400 to-orange-500 rounded-full flex items-center justify-center">
+                <span className="text-xl md:text-2xl">🎯</span>
               </div>
             </div>
             <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2 flex items-center justify-center">
               <Zap className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-500" />
-              Time Challenge!
+              Mission-Critical Systems!
             </h3>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-              {!selectedSoftware && "Choose from 10 critical systems. Speed and accuracy both matter!"}
-              {selectedSoftware && timerActive && "⏰ Time is ticking! Choose quickly but wisely!"}
-              {showResult && isCorrect && "🎉 Excellent work under pressure!"}
-              {showResult && !isCorrect && "Time pressure can be challenging. Think about the specific requirements."}
+              {!selectedSoftware && "These are high-stakes systems where failure is not an option. Choose from 12 critical projects!"}
+              {selectedSoftware && !showResult && "Lives and millions of dollars depend on your choice. Think carefully!"}
+              {showResult && isCorrect && "Perfect! You understand mission-critical system requirements!"}
+              {showResult && !isCorrect && "Critical systems require the utmost precision in methodology selection."}
             </p>
           </div>
         </div>
@@ -259,9 +232,9 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
         {!selectedSoftware && (
           <div className="mb-6 md:mb-8">
             <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-gray-800 flex items-center justify-center">
-              <span className="text-red-500 mr-2">🚨</span>
+              <span className="text-red-500 mr-2">⚠️</span>
               Choose a Critical System:
-              <span className="text-red-500 ml-2">🚨</span>
+              <span className="text-red-500 ml-2">⚠️</span>
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {softwareOptions.map((software) => (
@@ -289,7 +262,10 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
         {selectedSoftware && (
           <div className="mb-6 md:mb-8">
             <div className="bg-white rounded-xl p-4 md:p-6 shadow-lg text-center border-4 border-red-400">
-              <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4">🎯 Critical Mission:</h3>
+              <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 flex items-center justify-center">
+                <Zap className="w-5 h-5 mr-2 text-red-500" />
+                Critical Mission:
+              </h3>
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <span className="text-3xl md:text-4xl">{currentSoftware?.icon}</span>
                 <div className="text-center sm:text-left">
@@ -305,14 +281,14 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
         {selectedSoftware && !showResult && (
           <div className="mb-6 md:mb-8">
             <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-gray-800">
-              ⚡ Quick! Choose the Perfect Model:
+              🎯 Choose the Perfect Model:
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
               {allModels.map((model) => (
                 <button
                   key={model.id}
                   onClick={() => handleModelSelect(model.id)}
-                  className={`bg-gradient-to-br ${model.color} text-white rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 text-center border-2 border-white/30`}
+                  className={`bg-gradient-to-br ${model.color} text-white rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 text-center border-2 border-white/30 hover:border-white/60`}
                 >
                   <div className="text-3xl md:text-4xl mb-2">{model.emoji}</div>
                   <h4 className="text-sm md:text-base font-bold">{model.name}</h4>
@@ -330,13 +306,21 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
                 {isCorrect ? '🏆' : '💥'}
               </div>
               <h3 className={`text-2xl md:text-3xl font-bold mb-4 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                {isCorrect ? 'Perfect Under Pressure!' : 'Time Ran Out!'}
+                {isCorrect ? 'Mission Success!' : 'System Failure!'}
               </h3>
               <div className="bg-gray-100 rounded-lg p-4 md:p-6 mb-6">
                 <p className="text-gray-700 font-medium text-sm md:text-base leading-relaxed">
                   {currentSoftware?.reasoning}
                 </p>
               </div>
+              
+              {isCorrect && (
+                <div className="bg-green-100 rounded-lg p-4 mb-6">
+                  <p className="text-green-700 font-bold text-sm md:text-base">
+                    🎉 Outstanding! You're ready for the ultimate challenge!
+                  </p>
+                </div>
+              )}
               
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 {isCorrect ? (
@@ -345,7 +329,7 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
                     className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-full text-lg md:text-xl shadow-xl transform transition-all duration-300 hover:scale-110 animate-pulse"
                   >
                     <CheckCircle className="inline-block w-5 h-5 md:w-6 md:h-6 mr-2" />
-                    Continue to Level 4
+                    Final Level!
                   </button>
                 ) : (
                   <>
@@ -354,7 +338,7 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
                       className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-base md:text-lg shadow-xl transform transition-all duration-300 hover:scale-110"
                     >
                       <X className="inline-block w-4 h-4 md:w-5 md:h-5 mr-2" />
-                      Try Again - Quick!
+                      Try Again
                     </button>
                     <button
                       onClick={handleRestart}
@@ -374,4 +358,4 @@ const Level3Scene: React.FC<Level3SceneProps> = ({ onNext, onBack, gameData, upd
   );
 };
 
-export default Level3Scene;
+export default Level5Scene;
