@@ -115,33 +115,39 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
   const currentModel = allModels.find(m => m.id === selectedModel);
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100">
-      {/* Back button */}
-      <button
-        onClick={onBack}
-        className="absolute top-4 left-4 z-20 bg-white/90 hover:bg-white text-gray-700 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-      >
-        <ArrowLeft className="w-6 h-6" />
-      </button>
+    <div className="w-full min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 overflow-auto">
+      {/* Fixed header with back button and level indicator */}
+      <div className="sticky top-0 z-20 bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 p-4">
+        <div className="flex justify-between items-center">
+          <button
+            onClick={onBack}
+            className="bg-white/90 hover:bg-white text-gray-700 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
 
-      {/* Level indicator */}
-      <div className="absolute top-4 right-4 z-20 bg-white/90 rounded-lg p-3 shadow-lg">
-        <div className="flex items-center space-x-2">
-          <Star className="w-5 h-5 text-yellow-500" />
-          <span className="font-bold text-gray-700">Level 2 of 3</span>
+          <div className="bg-white/90 rounded-lg p-3 shadow-lg">
+            <div className="flex items-center space-x-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <span className="font-bold text-gray-700">Level 2 of 3</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Classroom header */}
+        <div className="flex justify-center mt-4">
+          <div className="bg-green-800 h-3 w-full max-w-md rounded-full"></div>
+        </div>
+        <div className="flex justify-center mt-2">
+          <div className="bg-gray-800 h-16 w-full max-w-md rounded-lg shadow-lg flex items-center justify-center">
+            <h2 className="text-white text-lg md:text-xl font-bold">Level 2: Be Careful!</h2>
+          </div>
         </div>
       </div>
 
-      {/* Classroom header */}
-      <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
-        <div className="bg-green-800 h-3 w-96 rounded-full"></div>
-        <div className="bg-gray-800 h-24 w-96 mt-2 rounded-lg shadow-lg flex items-center justify-center">
-          <h2 className="text-white text-xl font-bold">Level 2: Be Careful!</h2>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-center h-full pt-32">
-        <div className="max-w-5xl mx-auto px-8">
+      {/* Scrollable content */}
+      <div className="px-4 pb-8">
+        <div className="max-w-5xl mx-auto">
           {/* Teacher instruction */}
           <div className="text-center mb-8">
             <div className="bg-white/90 rounded-xl p-6 shadow-lg">
@@ -151,7 +157,7 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
                 </div>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">More Complex Choices!</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm md:text-base">
                 {!selectedSoftware && "These projects are trickier. Think carefully about their specific needs!"}
                 {selectedSoftware && !showResult && "All 5 models are available now. Choose wisely!"}
                 {showResult && isCorrect && "Perfect analysis! You're becoming an expert!"}
@@ -231,7 +237,7 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
                       <AlertTriangle className="w-5 h-5 mr-2" />
                       Critic's Challenge
                     </h4>
-                    <p className="text-red-700">
+                    <p className="text-red-700 text-sm md:text-base">
                       {selectedSoftware && selectedModel && 
                         criticComments[selectedSoftware as keyof typeof criticComments]?.[selectedModel as keyof typeof criticComments.erp]
                       }
@@ -253,7 +259,7 @@ const Level2Scene: React.FC<Level2SceneProps> = ({ onNext, onBack, gameData, upd
                   {isCorrect ? 'Excellent Analysis!' : 'The Critic Was Right'}
                 </h3>
                 <div className="bg-gray-100 rounded-lg p-4 mb-6">
-                  <p className="text-gray-700 font-medium">
+                  <p className="text-gray-700 font-medium text-sm md:text-base">
                     {currentSoftware?.reasoning}
                   </p>
                 </div>
